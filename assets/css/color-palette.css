@@ -1,0 +1,93 @@
+/**
+ * Color Palette
+ * Переиспользуемая палитра цветов для проектов
+ * 
+ * Основные цвета:
+ * - #FFF (белый)
+ * - #1F2937 (темно-серый)
+ * - #f97316 (оранжевый)
+ * 
+ * Дополнительные цвета:
+ * - #374151 (серый для неактивных элементов)
+ * - #9ca3af (светло-серый для текста)
+ * - #d1d5db (очень светло-серый для вторичного текста)
+ * - #6b7280 (средне-серый для мелкого текста)
+ */
+
+:root {
+  /* Основная палитра */
+  --color-primary: #f97316;
+  --color-primary-foreground: #ffffff;
+  
+  --color-background: #ffffff;
+  --color-foreground: #1f2937;
+  
+  --color-dark: #1f2937;
+  --color-dark-foreground: #ffffff;
+  
+  /* Дополнительные цвета */
+  --color-muted: #374151;
+  --color-muted-foreground: #9ca3af;
+  
+  --color-secondary: #d1d5db;
+  --color-secondary-foreground: #1f2937;
+  
+  --color-subtle: #6b7280;
+  --color-subtle-foreground: #ffffff;
+  
+  /* Состояния */
+  --color-active: var(--color-primary);
+  --color-active-foreground: var(--color-primary-foreground);
+  
+  --color-inactive: var(--color-muted);
+  --color-inactive-foreground: var(--color-muted-foreground);
+  
+  /* Границы */
+  --color-border: #e5e7eb;
+  --color-border-dark: #374151;
+}
+
+/* Утилитарные классы для быстрого использования */
+.text-primary { color: var(--color-primary) !important; }
+.text-foreground { color: var(--color-foreground) !important; }
+.text-background { color: var(--color-background) !important; }
+.text-dark { color: var(--color-dark) !important; }
+.text-muted { color: var(--color-muted) !important; }
+.text-muted-foreground { color: var(--color-muted-foreground) !important; }
+.text-secondary { color: var(--color-secondary) !important; }
+.text-subtle { color: var(--color-subtle) !important; }
+
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-foreground { background-color: var(--color-foreground) !important; }
+.bg-background { background-color: var(--color-background) !important; }
+.bg-dark { background-color: var(--color-dark) !important; }
+.bg-muted { background-color: var(--color-muted) !important; }
+
+.border-primary { border-color: var(--color-primary) !important; }
+.border-foreground { border-color: var(--color-foreground) !important; }
+.border-muted { border-color: var(--color-muted) !important; }
+
+/* Компоненты */
+.chip-active {
+  background-color: var(--color-active) !important;
+  color: var(--color-active-foreground) !important;
+}
+
+.chip-inactive {
+  background-color: var(--color-inactive) !important;
+  color: var(--color-inactive-foreground) !important;
+}
+
+/* Экспорт для JavaScript/TypeScript */
+:export {
+  primary: var(--color-primary);
+  primaryForeground: var(--color-primary-foreground);
+  background: var(--color-background);
+  foreground: var(--color-foreground);
+  dark: var(--color-dark);
+  darkForeground: var(--color-dark-foreground);
+  muted: var(--color-muted);
+  mutedForeground: var(--color-muted-foreground);
+  secondary: var(--color-secondary);
+  subtle: var(--color-subtle);
+}

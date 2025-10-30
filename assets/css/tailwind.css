@@ -1,0 +1,390 @@
+@import './color-palette.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+    --primary: 215 25% 27%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 215 25% 27%;
+    --muted: 0 0% 100%;
+    --muted-foreground: 215 25% 27%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 215 25% 27%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 215 25% 27%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 215 25% 27%;
+    --foreground: 0 0% 100%;
+    --card: 215 25% 27%;
+    --card-foreground: 0 0% 100%;
+    --popover: 215 25% 27%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 24 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 215 25% 27%;
+    --muted-foreground: 0 0% 100%;
+    --accent: 215 25% 27%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 24 100% 50%;
+  }
+
+  html { 
+    @apply scroll-smooth; 
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /*background-color: #FFF !important;*/
+    /*color: #1F2937 !important;*/
+  }
+
+  /* Texture overlay (grid) — backup option
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 24px 24px, 24px 24px;
+    background-position: 0 0, 0 0;
+    opacity: .25;
+  }
+  */
+
+  /* Subtle noise overlay — previous variant
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 1.2px),
+      radial-gradient(circle at 3px 2px, rgba(255,255,255,0.03) 1px, transparent 1.3px),
+      radial-gradient(circle at 2px 3px, rgba(255,255,255,0.02) 1px, transparent 1.2px);
+    background-size: 4px 4px, 6px 6px, 5px 5px;
+    background-position: 0 0, 1px 2px, 2px 1px;
+    opacity: .18;
+  }
+  */
+
+  /* Film-grain noise (softer, more natural) — backup option
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-radial-gradient(circle at 0 0, rgba(255,255,255,0.025) 0 0.5px, transparent 0.5px 3px),
+      repeating-radial-gradient(circle at 100% 0, rgba(255,255,255,0.02) 0 0.5px, transparent 0.5px 2.6px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 2px);
+    background-size: 4px 4px, 5px 5px, 3px 3px;
+    background-position: 0 0, 1px 1px, 0 0;
+    mix-blend-mode: soft-light;
+    opacity: .12;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.22) 100%);
+    opacity: .5;
+  }
+  */
+
+  /* New variant: subtle diagonal hatch noise — previous */
+  /*
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.025) 0 1px, transparent 1px 5px);
+    mix-blend-mode: soft-light;
+    opacity: .12;
+  }
+  */
+
+  /* Active: diagonal hatch with stronger dark stripes */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0 1px, #00000026 1px 5px),
+      repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.025) 0 1px, #00000059 1px 5px);
+    mix-blend-mode: soft-light;
+    opacity: .12;
+  }
+}
+
+@layer components {
+  /* Card components */
+  .card { 
+    @apply rounded-lg border transition-all duration-200 hover:shadow-lg; 
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border-color: #e2e8f0 !important; 
+    color: #1F2937 !important;
+    box-shadow: 
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .card:hover {
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  /* Dark section cards */
+  .dark-section .card {
+    background: linear-gradient(145deg, #374151 0%, #4b5563 100%) !important;
+    border-color: #6b7280 !important;
+    color: #FFF !important;
+    box-shadow: 
+      0 1px 3px 0 rgba(0, 0, 0, 0.3),
+      0 1px 2px 0 rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .dark-section .card:hover {
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.3),
+      0 4px 6px -2px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  .card-glass { 
+    @apply rounded-lg border transition-all duration-200 hover:shadow-lg; 
+    background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: 
+      0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .card-glass:hover {
+    box-shadow: 
+      0 8px 12px -2px rgba(0, 0, 0, 0.1),
+      0 3px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Chip/Badge components */
+  .chip { 
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 border-transparent; 
+    background: linear-gradient(145deg, #f97316 0%, #ea580c 100%) !important;
+    color: #FFF !important;
+    box-shadow: 
+      0 1px 2px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  .chip:hover {
+    background: linear-gradient(145deg, #ea580c 0%, #dc2626 100%) !important;
+    box-shadow: 
+      0 2px 4px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3) !important;
+  }
+  .chip-secondary { 
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 border-transparent; 
+    background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    color: #1F2937 !important;
+    box-shadow: 
+      0 1px 2px 0 rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .chip-secondary:hover {
+    background: linear-gradient(145deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+    box-shadow: 
+      0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Button components */
+  .btn { 
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2; 
+    background: linear-gradient(145deg, #f97316 0%, #ea580c 100%) !important;
+    color: #FFF !important;
+    box-shadow: 
+      0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  .btn:hover {
+    background: linear-gradient(145deg, #ea580c 0%, #dc2626 100%) !important;
+    box-shadow: 
+      0 4px 8px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3) !important;
+  }
+  .btn:active {
+    transform: translateY(0) !important;
+    box-shadow: 
+      0 1px 2px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .btn-outline { 
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2; 
+    border-color: #1F2937 !important; 
+    background: linear-gradient(145deg, #FFF 0%, #f8fafc 100%) !important;
+    color: #1F2937 !important;
+    box-shadow: 
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  .btn-outline:hover {
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    box-shadow: 
+      0 4px 6px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  .btn-ghost { 
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2; 
+    color: #1F2937 !important;
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  }
+  .btn-ghost:hover {
+    background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+  }
+
+  /* Navigation */
+  .nav-link { @apply text-sm font-medium transition-colors; color: #FFF !important; }
+  .nav-link.active { @apply text-gray-900; color: #FFF !important; }
+
+  /* Logo */
+  .logo { @apply transition-transform duration-200; }
+  .logo:hover { @apply scale-105; }
+
+  /* Section headers */
+  .h2-accent { @apply text-2xl font-semibold tracking-tight; color: #1F2937 !important; }
+  .h3-accent { @apply text-lg font-semibold; color: #1F2937 !important; }
+
+  /* Reveal animations */
+  .reveal { 
+    opacity: 0; 
+    transform: translateY(20px); 
+    will-change: opacity, transform; 
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+    transition-delay: var(--rv-delay, 0ms); 
+  }
+  .reveal-in { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  .reveal-up { 
+    transform: translateY(20px); 
+  }
+  .reveal-right { 
+    transform: translateX(-20px); 
+  }
+  .reveal-left { 
+    transform: translateX(20px); 
+  }
+  
+  /* Timeline dot specific animation */
+  .timeline-dot.reveal { 
+    opacity: 0; 
+    transform: scale(0); 
+  }
+  .timeline-dot.reveal-in { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+  
+  /* Scale reveal preset */
+  .reveal-scale { 
+    transform: scale(0.8); 
+  }
+
+  /* typing caret */
+  .caret { width: 1px; margin-left: 2px; animation: caret-blink 1s step-start infinite; opacity: .9; }
+
+  /* typing container to lock layout */
+  .typing-container { position: relative; display: inline-block; }
+  .typing-placeholder { visibility: hidden; white-space: pre-wrap; }
+  .typing-actual { position: absolute; left: 0; top: 0; white-space: pre-wrap; }
+}
+
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+
+/* Technology section styles */
+.tech-category {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.tech-category:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chip-chip {
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%) !important;
+  color: #FFF !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 6px !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  box-shadow: 0 2px 4px rgba(31, 41, 55, 0.2) !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+}
+
+.chip-chip:hover {
+  box-shadow: 0 4px 8px rgba(31, 41, 55, 0.3) !important;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+  border-color: #ea580c !important;
+}
+
+/* Education & Achievements section styles */
+.achievement-item {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.achievement-item:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
