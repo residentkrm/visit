@@ -10,22 +10,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Клонируем репозиторий (необязательно, если весь деплой на сервере)
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Connect and deploy via SSH
+      # 2️⃣ Git pull & удаление node_modules
+      - name: Git pull & clean
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-              export NVM_DIR="$HOME/.nvm"
-              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-              [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-              cd /home/laradev.tech
-              git pull
-              rm -rf node_modules
-              npm install
-              npm run build
-              sudo service supervisor restart
+            cd /home/laradev.tech
+            git pull
+            rm -rf node_modules
+
+      # 3️⃣ Install — часть 1: реальная установка npm
+      - name: Install dependencies
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            cd /home/laradev.tech
+            npm install
+
+      # 4️⃣ Install — часть 2: просто echo
+      - name: Install experiment
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/laradev.tech
+            echo "Hello World — Install step 2"
+
+      # 5️⃣ Build & restart
+      - name: Build & restart
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            cd /home/laradev.tech
+            npm run build
+            sudo service supervisor restart
